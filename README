@@ -1,0 +1,68 @@
+
+Overview
+========
+
+Embed user provided logo images into qr codes.
+
+How it is used
+==============
+
+User provides:
+
+- Logo image in PNG format
+
+- URL to encode
+
+and an SVG or PNG is generated with the logo embedded in the center of the qr code, eg: http://www.icezorg.com/wp-content/uploads/qrcode_adidas.gif
+
+Configuration
+=============
+
+Size in pixels of qr code modules: 5x5, 7x7, 8x8, or 12x12
+
+
+Behavior
+========
+
+- If a QR code square is overlapped by the logo image, and that square of the logo image contains any "non-empty" pixels, then the entire QR code square will be white, and that square of the logo image will be rendered on top of it.
+
+
+Pseudocode
+==========
+
+- Generate the non-branded qr code array for that url (as returned by rQrCode, call this qrCodeMatrix.
+
+- Generate the non-branded qr code image for that url, call this qrNonBrandedImg.
+
+- Create a completely transparent image with same dimension as image created above.  
+
+- Center the logo in the image created above, call this image qrLogoRawOverlayImg.
+
+- Loop over every QR code square
+
+  - Get sub-image in qrLogoRawOverlayImg which corresponds to that QR code square, call this subregionQrLogo
+
+  - Does every pixel in subregionQrLogo have alpha=0? 
+
+    - Yes: do nothing
+
+    - No: modify appropriate square in qrCodeMatrix and force it to be white
+
+- Generate a new version of the non-branded qr code image for that url, taking into account modifications to qrCodeMatrix, call this qrNonBrandedFinalImg.
+
+- Overlay qrLogoRawOverlayImg on top of qrNonBrandedFinalImg yielding the final result.
+
+Limitations
+===========
+
+- Only will support one size of QR code.  
+
+- Provided logo image must be correct size, no checking
+
+TODO
+====
+
+- Allow user to specify number of whitespace squares to surround logo with (default=0)
+
+- Specify color of dark squares
+

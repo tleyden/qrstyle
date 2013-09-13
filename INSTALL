@@ -1,0 +1,10 @@
+
+Install Dependencies
+====================
+
+$ sudo brew install ghostscript
+
+$ sudo brew install imagemagick
+
+$ sudo gem install rmagick
+

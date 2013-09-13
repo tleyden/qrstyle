@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>generate (QRStyle)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File qrstyle.rb, line 19</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate</span>(<span class="ruby-identifier">str2encode</span>, <span class="ruby-identifier">logopng</span>)
+
+                <span class="ruby-comment cmt"># get the qr code matrix for this input string with &quot;high&quot; redundancy so we can embed a logo</span>
+                <span class="ruby-comment cmt"># note: don't specify :size, let it figure out which &quot;version&quot; to use for us (version determines </span>
+                <span class="ruby-comment cmt"># number of modules/squares)</span>
+                <span class="ruby-identifier">qrCodeMatrix</span> = <span class="ruby-constant">RQRCode</span><span class="ruby-operator">::</span><span class="ruby-constant">QRCode</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">str2encode</span>, <span class="ruby-identifier">:level</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:h</span> )
+                
+                <span class="ruby-identifier">image_width</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">image_width_pixels</span> <span class="ruby-identifier">qrCodeMatrix</span>.<span class="ruby-identifier">module_count</span>
+                <span class="ruby-identifier">image_height</span> = <span class="ruby-identifier">image_width</span>
+
+                <span class="ruby-identifier">transparent_img</span> = <span class="ruby-constant">Image</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">image_width</span>,<span class="ruby-identifier">image_height</span>) { <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">background_color</span> = <span class="ruby-value str">&quot;transparent&quot;</span> }
+
+
+
+
+                <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">transparent_img</span>
+        
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
